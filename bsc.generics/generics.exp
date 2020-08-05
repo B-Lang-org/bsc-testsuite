@@ -1,0 +1,4 @@
+
+# tests for Bluespec generics
+
+test_c_veri CShow
