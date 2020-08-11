@@ -1,18 +1,22 @@
 package CShow where
 
+import ListN
+import Vector
+import BuildVector
+
 data Foo = A (UInt 8) Bool Bar
          | B (UInt 16)
          | C
          | D {a :: (UInt 8); b :: Foo}
-  deriving (Generic)
+  deriving (Generic, FShow)
 
 struct Bar =
   foo :: Foo
   x :: (UInt 8)
- deriving (Generic)
+ deriving (Generic, FShow)
 
 data Baz a = Baz a a
-  deriving (Generic)
+  deriving (Generic, FShow)
 
 class CShow a where
   cshow :: a -> Fmt
@@ -77,6 +81,14 @@ instance (CShow' a) => CShowSummand (MetaField name idx a) where
   cshowSummandNamed (MetaField x) = $format (if valueOf idx > 0 then "; " else "") (stringOf name) "=" (cshow' x)
   cshowSummandAnon  (MetaField x) = $format " " (cshowP' x)
 
+instance (CShow' a) => CShow' (Vector n a) where
+  cshow' v =
+    let contents =
+          if valueOf n > 0
+          then (List.foldr1 (\ a b -> $format a ", " b) $ List.map cshow' $ Vector.toList v)
+          else $format ""
+    in $format "[" contents "]"
+
 sysCShow :: Module Empty
 sysCShow = module
   rules
@@ -85,4 +97,6 @@ sysCShow = module
       $display (cshow (Bar {x=42; foo=C}))
       $display (cshow (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
       $display (cshow (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42}))))
+      $display (cshow ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar))
+      $display (cshow ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil))
       $finish
