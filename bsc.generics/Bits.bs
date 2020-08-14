@@ -19,7 +19,7 @@ class MyBits' r n | r -> n where
   mypack'   :: r -> Bit n
   myunpack' :: Bit n -> r
 
-instance (Log ncons ntag, ConBits r ndata, Add ntag ndata n) =>
+instance (Log ncons ntag, ConBits 0 r ndata, Add ntag ndata n) =>
          MyBits' (MetaData name pkg ncons r) n where
   mypack' (MetaData x) =
     let (tagNum, dat) = packCon x
@@ -27,28 +27,29 @@ instance (Log ncons ntag, ConBits r ndata, Add ntag ndata n) =>
     in tag ++ dat
   myunpack' bs =
     let (tag, dat) = split bs
-    in MetaData $ unpackCon (primUIntBitsToInteger (tag :: Bit ntag)) dat
+    in MetaData $ unpackCon (unpack (tag :: Bit ntag)) dat
 
-class ConBits r n | r -> n where
+class ConBits i r n | r -> i n where
   packCon   :: r -> (Integer, Bit n)
-  unpackCon :: Integer -> Bit n -> r
+  unpackCon :: UInt m -> Bit n -> r
 
-instance (ConBits a1 n1, ConBits a2 n2, Max n1 n2 n, Add p1 n1 n, Add p2 n2 n) =>
-         ConBits (Either a1 a2) n where
+instance (ConBits i1 a1 n1, ConBits i2 a2 n2, Max n1 n2 n, Add p1 n1 n, Add p2 n2 n) =>
+         ConBits i1 (Either a1 a2) n where
   packCon (Left x) =
     let (tag, bs) = packCon x
     in (tag, extend bs)
   packCon (Right x) =
     let (tag, bs) = packCon x
     in (tag, extend bs)
-  unpackCon 0 bs = Left $ unpackCon 0 (truncate bs)
-  unpackCon i bs = Right $ unpackCon (i - 1) (truncate bs)
+  unpackCon i bs when i == fromInteger (valueOf i1) =
+    Left  $ unpackCon i (truncate bs)
+  unpackCon i bs = Right $ unpackCon i (truncate bs)
 
-instance (MyBits' r n) => ConBits (MetaConsNamed name idx nfields r) n where
+instance (MyBits' r n) => ConBits idx (MetaConsNamed name idx nfields r) n where
   packCon (MetaConsNamed x) = (valueOf idx, mypack' x)
   unpackCon _ bs = MetaConsNamed $ myunpack' bs
 
-instance (MyBits' r n) => ConBits (MetaConsAnon name idx nfields r) n where
+instance (MyBits' r n) => ConBits idx (MetaConsAnon name idx nfields r) n where
   packCon (MetaConsAnon x) = (valueOf idx, mypack' x)
   unpackCon _ bs = MetaConsAnon $ myunpack' bs
 
@@ -85,9 +86,6 @@ struct Bar =
  deriving (Generic, FShow)
 
 
-data MyUInt n = UInt (Bit n)
-  deriving (Generic)
-
 foo :: Vector 3 Foo
 foo = vec (A 5) (B 1223 True (Bar {x=42; y=54})) C
 
@@ -102,6 +100,6 @@ sysBits = module
   rules
     when True ==> do
       $display (fshow foo)
-      -- $display (fshow fooPack)
+      $display (fshow fooPack)
       $display (fshow fooUnpack)
       $finish

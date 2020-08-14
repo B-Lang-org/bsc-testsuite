@@ -85,7 +85,7 @@ instance (CShow' a) => CShow' (Vector n a) where
   cshow' v =
     let contents =
           if valueOf n > 0
-          then (List.foldr1 (\ a b -> $format a ", " b) $ List.map cshow' $ Vector.toList v)
+          then List.foldr1 (\ a b -> $format a ", " b) $ List.map cshow' $ Vector.toList v
           else $format ""
     in $format "[" contents "]"
 
