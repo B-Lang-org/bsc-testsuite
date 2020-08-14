@@ -15,19 +15,19 @@ instance (Generic a r, MyBits' r n) => MyBits a n where
   mypack   x  = mypack' $ from x
   myunpack bs = to $ myunpack' bs
 
-class MyBits' r n | r -> n where
+class incoherent MyBits' r n | r -> n where
   mypack'   :: r -> Bit n
   myunpack' :: Bit n -> r
 
 instance (Log ncons ntag, ConBits 0 r ndata, Add ntag ndata n) =>
-         MyBits' (MetaData name pkg ncons r) n where
-  mypack' (MetaData x) =
+         MyBits' (Meta (MetaData name pkg ncons) r) n where
+  mypack' (Meta x) =
     let (tagNum, dat) = packCon x
         tag = pack ((fromInteger tagNum) :: UInt ntag)
     in tag ++ dat
   myunpack' bs =
     let (tag, dat) = split bs
-    in MetaData $ unpackCon (unpack (tag :: Bit ntag)) dat
+    in Meta $ unpackCon (unpack (tag :: Bit ntag)) dat
 
 class ConBits i r n | r -> i n where
   packCon   :: r -> (Integer, Bit n)
@@ -45,13 +45,13 @@ instance (ConBits i1 a1 n1, ConBits i2 a2 n2, Max n1 n2 n, Add p1 n1 n, Add p2 n
     Left  $ unpackCon i (truncate bs)
   unpackCon i bs = Right $ unpackCon i (truncate bs)
 
-instance (MyBits' r n) => ConBits idx (MetaConsNamed name idx nfields r) n where
-  packCon (MetaConsNamed x) = (valueOf idx, mypack' x)
-  unpackCon _ bs = MetaConsNamed $ myunpack' bs
+instance (MyBits' r n) => ConBits idx (Meta (MetaConsNamed name idx nfields) r) n where
+  packCon (Meta x) = (valueOf idx, mypack' x)
+  unpackCon _ bs = Meta $ myunpack' bs
 
-instance (MyBits' r n) => ConBits idx (MetaConsAnon name idx nfields r) n where
-  packCon (MetaConsAnon x) = (valueOf idx, mypack' x)
-  unpackCon _ bs = MetaConsAnon $ myunpack' bs
+instance (MyBits' r n) => ConBits idx (Meta (MetaConsAnon name idx nfields) r) n where
+  packCon (Meta x) = (valueOf idx, mypack' x)
+  unpackCon _ bs = Meta $ myunpack' bs
 
 instance (MyBits' r1 n1, MyBits' r2 n2, Add n1 n2 n) => MyBits' (r1, r2) n where
   mypack' (x, y) = mypack' x ++ mypack' y
@@ -62,14 +62,14 @@ instance  MyBits' () 0 where
   mypack' () = 0'b0
   myunpack' _ = ()
 
-instance (MyBits' r n) => MyBits' (MetaField name idx r) n where
-  mypack' (MetaField x) = mypack' x
-  myunpack' bs = MetaField $ myunpack' bs
-
 instance (MyBits' a m, Bits (Vector n (Bit m)) l) =>
-         MyBits' (MetaData name pkg 1 (Vector n a)) l where
-  mypack' (MetaData v) = pack $ map mypack' v
-  myunpack' = MetaData `compose` map myunpack' `compose` unpack
+         MyBits' (Meta (MetaData name pkg 1) (Vector n a)) l where
+  mypack' (Meta v) = pack $ map mypack' v
+  myunpack' = Meta `compose` map myunpack' `compose` unpack
+
+instance (MyBits' r n) => MyBits' (Meta m r) n where
+  mypack' (Meta x) = mypack' x
+  myunpack' bs = Meta $ myunpack' bs
 
 instance (MyBits a n) => MyBits' (Conc a) n where
   mypack' (Conc x) = mypack x
