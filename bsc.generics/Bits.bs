@@ -75,6 +75,22 @@ instance (MyBits a n) => MyBits' (Conc a) n where
   mypack' (Conc x) = mypack x
   myunpack' bs = Conc $ myunpack bs
 
+mkMyReg :: (IsModule m c, MyBits a n) => a -> m (Reg a)
+mkMyReg v = liftModule $
+  if valueOf n == 0 then
+    module
+      interface
+	_read = myunpack 0
+	_write _ = return ()
+  else
+    module
+      _r :: Reg (Bit n)
+      _r <- mkReg (mypack v)
+      interface
+	_read = myunpack _r
+	_write x = _r._write (mypack x)
+
+
 data Foo = A (UInt 8)
          | B (UInt 16) Bool Bar
          | C
@@ -95,16 +111,17 @@ fooPack = mypack foo
 fooUnpack :: Vector 3 Foo
 fooUnpack = myunpack fooPack
 
+
+
+
 sysBits :: Module Empty
 sysBits = module
-  r <- mkReg $ mypack foo
+  r <- mkMyReg foo
 
   rules
     when True ==> do
       $display (fshow foo)
       $display (fshow fooPack)
       $display (fshow fooUnpack)
-
-      let res :: Vector 3 Foo = myunpack r
-      $display (fshow res)
+      $display (fshow r)
       $finish
