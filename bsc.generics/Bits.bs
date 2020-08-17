@@ -97,9 +97,14 @@ fooUnpack = myunpack fooPack
 
 sysBits :: Module Empty
 sysBits = module
+  r <- mkReg $ mypack foo
+
   rules
     when True ==> do
       $display (fshow foo)
       $display (fshow fooPack)
       $display (fshow fooUnpack)
+
+      let res :: Vector 3 Foo = myunpack r
+      $display (fshow res)
       $finish
