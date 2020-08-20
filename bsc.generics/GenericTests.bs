@@ -1,0 +1,92 @@
+package GenericTests where
+
+import ListN
+import Vector
+import BuildVector
+
+-- Represents "evidence" for type equality between a and b,
+-- can only be constructed by refl ("reflexive") when a and b are equal.
+-- This could move to a library, I suppose?
+data TypeEq a b = Refl__
+refl :: TypeEq a a
+refl = Refl__
+
+
+data Foo = A (UInt 8) Bool Bar
+         | B (UInt 16)
+         | C
+         | D {a :: (UInt 8); b :: Foo}
+  deriving (Generic, Eq, FShow)
+
+struct Bar =
+  foo :: Foo
+  x :: (UInt 8)
+ deriving (Generic, Eq, FShow)
+
+data Baz a = Baz a a
+  deriving (Generic, Eq, FShow)
+
+-- Test generic representations
+fooRepr :: (Generic Foo r) => TypeEq r
+  (Prelude.Meta (Prelude.MetaData "Foo" "GenericTests" 4)
+   (Prelude.Either
+    (Prelude.Meta (Prelude.MetaConsAnon "A" 0 3)
+     (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 8)),
+      Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc Prelude.Bool),
+      Prelude.Meta (Prelude.MetaField "_2" 2) (Prelude.Conc GenericTests.Bar)))
+    (Prelude.Either
+     (Prelude.Meta (Prelude.MetaConsAnon "B" 1 1)
+      (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 16))))
+     (Prelude.Either (Prelude.Meta (Prelude.MetaConsAnon "C" 2 0) ())
+      (Prelude.Meta (Prelude.MetaConsNamed "D" 3 2)
+       (Prelude.Meta (Prelude.MetaField "a" 0) (Prelude.Conc (Prelude.UInt 8)),
+        Prelude.Meta (Prelude.MetaField "b" 1) (Prelude.Conc GenericTests.Foo)))))))
+fooRepr = refl
+
+barRepr :: (Generic Bar r) => TypeEq r
+  (Prelude.Meta (Prelude.MetaData "Bar" "GenericTests" 1)
+   (Prelude.Meta (Prelude.MetaConsNamed "Bar" 0 2)
+    (Prelude.Meta (Prelude.MetaField "foo" 0) (Prelude.Conc GenericTests.Foo),
+     Prelude.Meta (Prelude.MetaField "x" 1) (Prelude.Conc (Prelude.UInt 8)))))
+barRepr = refl
+
+bazRepr :: (Generic (Baz a) r) => TypeEq r
+  (Prelude.Meta (Prelude.MetaData "Baz" "GenericTests" 1)
+   (Prelude.Meta (Prelude.MetaConsAnon "Baz" 0 2)
+    (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc a),
+     Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc a))))
+bazRepr = refl
+
+bazFooRepr :: (Generic (Baz Foo) r) => TypeEq r
+  (Prelude.Meta (Prelude.MetaData "Baz" "GenericTests" 1)
+   (Prelude.Meta (Prelude.MetaConsAnon "Baz" 0 2)
+    (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc GenericTests.Foo),
+     Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc GenericTests.Foo))))
+bazFooRepr = refl
+
+barVec3Repr :: (Generic (Vector 3 Bar) r) => TypeEq r
+  (Prelude.Meta (Prelude.MetaData "Vector" "Vector" 1)
+    (Vector.Vector 3 (Prelude.Conc GenericTests.Bar)))
+barVec3Repr = refl
+
+-- Test to/from
+actTestGeneric :: (Generic a r, FShow a, FShow r, Eq a) => a -> Action
+actTestGeneric x = do
+  $display "Representation for " (fshow x)
+  $display (fshow (from x))
+  let res :: a = to (from x)
+  if res == x
+    then $display "from matches"
+    else $display "from mismatch: " (fshow res)
+
+sysGenericTests :: Module Empty
+sysGenericTests = module
+  rules
+    when True ==> do
+      actTestGeneric (42 :: UInt 8)
+      actTestGeneric (Bar {x=42; foo=C})
+      actTestGeneric (A 12 True (Bar {foo=D {a=34; b=C}; x=42}))
+      actTestGeneric (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
+      actTestGeneric ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar)
+--      actTestGeneric ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
+      $finish

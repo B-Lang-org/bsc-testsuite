@@ -1,5 +1,6 @@
 
 # tests for Bluespec generics
 
+test_c_veri GenericTests
 test_c_veri CShow
 test_c_veri Bits
