@@ -1,0 +1,34 @@
+checking package dependencies
+compiling GenericNegativeTests.bs
+Error: "GenericNegativeTests.bs", line 27, column 10: (T0020)
+  Type error at:
+    refl
+
+  Expected type:
+    GenericNegativeTests.TypeEq
+(Prelude.Meta (Prelude.MetaData "Foo" "GenericNegativeTests" 3)
+ (Prelude.Either
+  (Prelude.Meta (Prelude.MetaConsAnon "A" 0 2)
+   (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 8)),
+    Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc Prelude.Bool)))
+  (Prelude.Either
+   (Prelude.Meta (Prelude.MetaConsAnon "B" 1 1)
+    (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 16))))
+   (Prelude.Meta (Prelude.MetaConsAnon "C" 2 0) ()))))
+(Prelude.Meta (Prelude.MetaData "Foo" "GenericTests" 4)
+ (Prelude.Either
+  (Prelude.Meta (Prelude.MetaConsAnon "A" 0 3)
+   (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 8)),
+    Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc Prelude.Bool)))
+  (Prelude.Either
+   (Prelude.Meta (Prelude.MetaConsAnon "B" 1 1)
+    (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 16))))
+   (Prelude.Meta (Prelude.MetaConsAnon "C" 2 0) ()))))
+
+  Inferred type:
+    GenericNegativeTests.TypeEq a__ a__
+
+Error: "GenericNegativeTests.bs", line 31, column 13: (T0031)
+  The contexts for this expression could not be resolved because there are no
+  instances of the form:
+    Prelude.Generic Prelude.Integer r

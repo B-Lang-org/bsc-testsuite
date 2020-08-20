@@ -1,0 +1,31 @@
+package GenericNegativeTests where
+
+-- Represents "evidence" for type equality between a and b,
+-- can only be constructed by refl ("reflexive") when a and b are equal.
+-- This could move to a library, I suppose?
+data TypeEq a b = Refl__
+refl :: TypeEq a a
+refl = Refl__
+
+
+data Foo = A (UInt 8) Bool
+         | B (UInt 16)
+         | C
+  deriving (Generic)
+
+-- Wrong generic representation
+fooRepr :: (Generic Foo r) => TypeEq r
+  (Meta (MetaData "Foo" "GenericTests" 4)
+   (Either
+    (Meta (MetaConsAnon "A" 0 3)
+     (Meta (MetaField "_0" 0) (Conc (UInt 8)),
+      Meta (MetaField "_1" 1) (Conc Bool)))
+    (Either
+     (Meta (MetaConsAnon "B" 1 1)
+      (Meta (MetaField "_0" 0) (Conc (UInt 16))))
+     (Meta (MetaConsAnon "C" 2 0) ()))))
+fooRepr = refl
+
+-- No Generic instance
+integerRes :: r
+integerRes = from (42 :: Integer)

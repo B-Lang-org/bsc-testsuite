@@ -28,46 +28,49 @@ data Baz a = Baz a a
 
 -- Test generic representations
 fooRepr :: (Generic Foo r) => TypeEq r
-  (Prelude.Meta (Prelude.MetaData "Foo" "GenericTests" 4)
-   (Prelude.Either
-    (Prelude.Meta (Prelude.MetaConsAnon "A" 0 3)
-     (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 8)),
-      Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc Prelude.Bool),
-      Prelude.Meta (Prelude.MetaField "_2" 2) (Prelude.Conc GenericTests.Bar)))
-    (Prelude.Either
-     (Prelude.Meta (Prelude.MetaConsAnon "B" 1 1)
-      (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc (Prelude.UInt 16))))
-     (Prelude.Either (Prelude.Meta (Prelude.MetaConsAnon "C" 2 0) ())
-      (Prelude.Meta (Prelude.MetaConsNamed "D" 3 2)
-       (Prelude.Meta (Prelude.MetaField "a" 0) (Prelude.Conc (Prelude.UInt 8)),
-        Prelude.Meta (Prelude.MetaField "b" 1) (Prelude.Conc GenericTests.Foo)))))))
+  (Meta (MetaData "Foo" "GenericTests" 4)
+   (Either
+    (Meta (MetaConsAnon "A" 0 3)
+     (Meta (MetaField "_0" 0) (Conc (UInt 8)),
+      Meta (MetaField "_1" 1) (Conc Bool),
+      Meta (MetaField "_2" 2) (Conc Bar)))
+    (Either
+     (Meta (MetaConsAnon "B" 1 1)
+      (Meta (MetaField "_0" 0) (Conc (UInt 16))))
+     (Either (Meta (MetaConsAnon "C" 2 0) ())
+      (Meta (MetaConsNamed "D" 3 2)
+       (Meta (MetaField "a" 0) (Conc (UInt 8)),
+        Meta (MetaField "b" 1) (Conc Foo)))))))
 fooRepr = refl
 
 barRepr :: (Generic Bar r) => TypeEq r
-  (Prelude.Meta (Prelude.MetaData "Bar" "GenericTests" 1)
-   (Prelude.Meta (Prelude.MetaConsNamed "Bar" 0 2)
-    (Prelude.Meta (Prelude.MetaField "foo" 0) (Prelude.Conc GenericTests.Foo),
-     Prelude.Meta (Prelude.MetaField "x" 1) (Prelude.Conc (Prelude.UInt 8)))))
+  (Meta (MetaData "Bar" "GenericTests" 1)
+   (Meta (MetaConsNamed "Bar" 0 2)
+    (Meta (MetaField "foo" 0) (Conc Foo),
+     Meta (MetaField "x" 1) (Conc (UInt 8)))))
 barRepr = refl
 
 bazRepr :: (Generic (Baz a) r) => TypeEq r
-  (Prelude.Meta (Prelude.MetaData "Baz" "GenericTests" 1)
-   (Prelude.Meta (Prelude.MetaConsAnon "Baz" 0 2)
-    (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc a),
-     Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc a))))
+  (Meta (MetaData "Baz" "GenericTests" 1)
+   (Meta (MetaConsAnon "Baz" 0 2)
+    (Meta (MetaField "_0" 0) (Conc a),
+     Meta (MetaField "_1" 1) (Conc a))))
 bazRepr = refl
 
 bazFooRepr :: (Generic (Baz Foo) r) => TypeEq r
-  (Prelude.Meta (Prelude.MetaData "Baz" "GenericTests" 1)
-   (Prelude.Meta (Prelude.MetaConsAnon "Baz" 0 2)
-    (Prelude.Meta (Prelude.MetaField "_0" 0) (Prelude.Conc GenericTests.Foo),
-     Prelude.Meta (Prelude.MetaField "_1" 1) (Prelude.Conc GenericTests.Foo))))
+  (Meta (MetaData "Baz" "GenericTests" 1)
+   (Meta (MetaConsAnon "Baz" 0 2)
+    (Meta (MetaField "_0" 0) (Conc Foo),
+     Meta (MetaField "_1" 1) (Conc Foo))))
 bazFooRepr = refl
 
 barVec3Repr :: (Generic (Vector 3 Bar) r) => TypeEq r
-  (Prelude.Meta (Prelude.MetaData "Vector" "Vector" 1)
-    (Vector.Vector 3 (Prelude.Conc GenericTests.Bar)))
+  (Meta (MetaData "Vector" "Vector" 1) (Vector 3 (Conc Bar)))
 barVec3Repr = refl
+
+barListN3Repr :: (Generic (ListN 3 Bar) r) => TypeEq r
+  (Meta (MetaData "ListN" "ListN" 1) (Vector 3 (Conc Bar)))
+barListN3Repr = refl
 
 -- Test to/from
 actTestGeneric :: (Generic a r, FShow a, FShow r, Eq a) => a -> Action
@@ -88,5 +91,5 @@ sysGenericTests = module
       actTestGeneric (A 12 True (Bar {foo=D {a=34; b=C}; x=42}))
       actTestGeneric (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
       actTestGeneric ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar)
---      actTestGeneric ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
+--    actTestGeneric ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
       $finish
