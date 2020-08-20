@@ -29,11 +29,6 @@ instance CShow (UInt a) where
 instance CShow Bool where
   cshow = fshow
 
--- XXX needed to avoid failure due to recursion
-instance (Generic Foo r, CShow' r) => CShow Foo where
-  cshow x = cshow' $ from x
-  cshowP x = cshowP' $ from x
-
 instance (Generic a r, CShow' r) => CShow a where
   cshow x = cshow' $ from x
   cshowP x = cshowP' $ from x
