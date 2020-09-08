@@ -1,0 +1,9 @@
+
+# Tests for higher-rank struct fields
+
+test_c_veri HigherRank
+test_c_veri Undefined
+test_c_veri DeepSeqCond
+
+# Fails in elab
+compile_pass Uninitialized.bs
