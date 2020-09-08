@@ -18,6 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-16.04, ubuntu-18.04 ]
+      fail-fast: false
     name: "Build ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
     steps:
@@ -70,12 +71,16 @@ jobs:
           ccache --zero-stats --max-size 500M
           export PATH=/usr/lib/ccache:$PATH
 
-          if [ `lsb_release -rs` == 16.04]; then
+          if [ `lsb_release -rs` == 16.04 ]; then
               export LINKER=gold
           else
               export LINKER=lld
           fi
           export LDFLAGS="-Wl,-fuse-ld=$LINKER"
+
+          # Always archive logs, even if make fails (and terminates this script
+          # because it's invoked with :set -eo pipefile)
+          trap ./archive_logs.sh EXIT
 
           # Use -O0 for significantly faster C++ compiles (which more
           # than make up for slower simulations), and gold as the C++
@@ -83,7 +88,7 @@ jobs:
           export CXXFLAGS="-fuse-ld=gold -O0"
           make \
                TEST_SYSTEMC_INC=$HOME/systemc/include \
-               TEST_SYSTEMC_LIB=$HOME/systemc/lib
+               TEST_SYSTEMC_LIB=$HOME/systemc/lib-linux64
 
       # Show ccache stats so we can see what the hit-rate is like.
       - name: CCache stats
@@ -94,17 +99,10 @@ jobs:
       # Save test logs on failure so we can diagnose
       - name: Archive test logs
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v1
         with:
-          name: test-logs
-          path: |
-            bsc.log
-            bsc.sum
-            **/*.bsc-out
-            **/*.bsc-ccomp-out
-            **/*.bsc-vcomp-out
-            **/*.bsc-sched-out
-            **/*.diff-out
+          name: logs-${{ matrix.os }}
+          path: logs.tar.gz
 
   build-macOS:
     strategy:
@@ -142,6 +140,10 @@ jobs:
           ccache --zero-stats --max-size 500M
           export PATH=$(brew --prefix)/opt/local/ccache/libexec:$PATH
 
+          # Always archive logs, even if make fails (and terminates this script
+          # because it's invoked with :set -eo pipefile)
+          trap ./archive_logs.sh EXIT
+
           # Use -O0 for significantly faster C++ compiles (which more
           # than make up for slower simulations).
           export CXXFLAGS="-O0"
@@ -159,12 +161,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: test-logs
-          path: |
-            bsc.log
-            bsc.sum
-            **/*.bsc-out
-            **/*.bsc-ccomp-out
-            **/*.bsc-vcomp-out
-            **/*.bsc-sched-out
-            **/*.diff-out
+          name: test-logs-${{ matrix.os }}
+          path: logs.tar.gz
