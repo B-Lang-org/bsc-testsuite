@@ -94,12 +94,12 @@ mkMyReg v = liftModule $
 data Foo = A (UInt 8)
          | B (UInt 16) Bool Bar
          | C
-  deriving (Generic, FShow)
+  deriving (FShow)
 
 struct Bar =
   x :: (UInt 8)
   y :: (UInt 8)
- deriving (Generic, FShow)
+ deriving (FShow)
 
 
 foo :: Vector 3 Foo

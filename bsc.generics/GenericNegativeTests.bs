@@ -11,7 +11,6 @@ refl = Refl__
 data Foo = A (UInt 8) Bool
          | B (UInt 16)
          | C
-  deriving (Generic)
 
 -- Wrong generic representation
 fooRepr :: (Generic Foo r) => TypeEq r

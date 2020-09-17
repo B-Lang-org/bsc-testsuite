@@ -8,15 +8,15 @@ data Foo = A (UInt 8) Bool Bar
          | B (UInt 16)
          | C
          | D {a :: (UInt 8); b :: Foo}
-  deriving (Generic, FShow)
+  deriving (FShow)
 
 struct Bar =
   foo :: Foo
   x :: (UInt 8)
- deriving (Generic, FShow)
+ deriving (FShow)
 
 data Baz a = Baz a a
-  deriving (Generic, FShow)
+  deriving (FShow)
 
 class CShow a where
   cshow :: a -> Fmt

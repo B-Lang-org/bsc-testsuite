@@ -16,15 +16,15 @@ data Foo = A (UInt 8) Bool Bar
          | B (UInt 16)
          | C
          | D {a :: (UInt 8); b :: Foo}
-  deriving (Generic, Eq, FShow)
+  deriving (Eq, FShow)
 
 struct Bar =
   foo :: Foo
   x :: (UInt 8)
- deriving (Generic, Eq, FShow)
+ deriving (Eq, FShow)
 
 data Baz a = Baz a a
-  deriving (Generic, Eq, FShow)
+  deriving (Eq, FShow)
 
 -- Test generic representations
 fooRepr :: (Generic Foo r) => TypeEq r
