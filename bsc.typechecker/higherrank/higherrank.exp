@@ -1,9 +1,9 @@
 
 # Tests for higher-rank struct fields
 
-test_c_veri HigherRank
-test_c_veri Undefined
-test_c_veri DeepSeqCond
+test_veri_only HigherRank
+test_veri_only Undefined
+test_veri_only DeepSeqCond
 
-# Fails in elab
-compile_pass Uninitialized.bs
+# Use of an ininitialized value results in an expected error
+compile_verilog_fail_error Uninitialized.bs G0028 1 sysUninitialized
