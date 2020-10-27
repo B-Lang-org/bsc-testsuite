@@ -1,0 +1,13 @@
+package UndefinedAttrib where
+
+a :: Attributes__
+a = _
+
+m :: Module Empty
+m = module
+  interface
+
+sysUndefinedAttrib :: Module Empty
+sysUndefinedAttrib = module
+  setStateAttrib a m
+  interface

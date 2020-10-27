@@ -65,3 +65,5 @@ compile_verilog_fail_error UndetModule.bsv G0011
 compile_verilog_fail_error UndetRules.bsv G0109
 compile_verilog_fail_error UndetRules2.bsv G0109
 
+# Test that using an undefined attribute gives an error
+compile_verilog_fail_error UndefinedAttrib.bs S0015 1 sysUndefinedAttrib
