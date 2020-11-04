@@ -25,6 +25,9 @@ fooRepr :: (Generic Foo r) => TypeEq r
      (Meta (MetaConsAnon "C" 2 0) ()))))
 fooRepr = refl
 
--- No Generic instance
-integerRes :: r
-integerRes = from (42 :: Integer)
+-- No Generic instance due to higher-rank field
+struct Bar =
+  x :: (Literal a) => a
+
+barRes :: r
+barRes = from (Bar {x=42})
