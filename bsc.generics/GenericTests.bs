@@ -26,6 +26,16 @@ struct Bar =
 data Baz a = Baz a a
   deriving (Eq, FShow)
 
+struct Qux =
+  x :: a -> a -- Higher rank
+  y :: Int 8
+
+instance Eq Qux where
+  (==) q1 q2 = (q1.x 42) == (q2.x 42) && q1.y == q2.y
+
+instance FShow Qux where
+  fshow q = $format "Qux " q.y
+
 -- Test generic representations
 fooRepr :: (Generic Foo r) => TypeEq r
   (Meta (MetaData "Foo" "GenericTests" 4)
@@ -64,6 +74,16 @@ bazFooRepr :: (Generic (Baz Foo) r) => TypeEq r
      Meta (MetaField "_1" 1) (Conc Foo))))
 bazFooRepr = refl
 
+{- Can't actually test this, due to the presence of a generated struct Qux_x
+quxFooRepr :: (Generic Qux r) => TypeEq r
+  (Meta (MetaData "Qux" "GenericTests" 1)
+   (Meta (MetaConsNamed "Qux" 0 2)
+    (Meta (MetaField "x" 0)
+     (Meta (MetaPoly "a\n") (Conc Qux_x)),
+     Meta (MetaField "y" 1) (Conc (Int 8)))))
+quxFooRepr = refl
+-}
+
 bit8Repr :: (Generic (Bit 8) r) => TypeEq r (ConcPrim (Bit 8))
 bit8Repr = refl
 
@@ -74,6 +94,35 @@ barVec3Repr = refl
 barListN3Repr :: (Generic (ListN 3 Bar) r) => TypeEq r
   (Meta (MetaData "ListN" "ListN" 1) (Vector 3 (Conc Bar)))
 barListN3Repr = refl
+
+-- A simple generic transformation to increment all UInts by 1
+class Trans a where
+  trans :: a -> a
+
+instance Trans (UInt n) where
+  trans x = x + 1
+
+instance (Generic a r, Trans' r) => Trans a where
+  trans = to `compose` trans' `compose` from
+
+class Trans' r where
+  trans' :: r -> r
+
+instance (Trans' r1, Trans' r2) => Trans' (r1, r2) where
+  trans' (x, y) = (trans' x, trans' y)
+
+instance Trans' () where
+  trans' () = ()
+
+instance (Trans' r1, Trans' r2) => Trans' (Either r1 r2) where
+  trans' (Left x) = Left $ trans' x
+  trans' (Right x) = Right $ trans' x
+
+instance (Trans' r) => Trans' (Meta m r) where
+  trans' (Meta x) = Meta $ trans' x
+
+instance (Trans a) => Trans' (Conc a) where
+  trans' (Conc x) = Conc $ trans x
 
 -- Test to/from
 actTestGeneric :: (Generic a r, FShow a, FShow r, Eq a) => a -> Action
@@ -93,6 +142,18 @@ sysGenericTests = module
       actTestGeneric (Bar {x=42; foo=C})
       actTestGeneric (A 12 True (Bar {foo=D {a=34; b=C}; x=42}))
       actTestGeneric (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
+--    actTestGeneric (Qux {x=id; y=7}) -- Higher-rank wrapper doesn't have FShow
+      let q = (Qux {x=id; y=7})
+      let qres :: Qux = to (from q)
+      if qres == q
+        then $display "from matches"
+        else $display "from mismatch: " (fshow qres)
       actTestGeneric ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar)
 --    actTestGeneric ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
+
+      let b = (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
+      let bres = trans b
+      if bres == (Baz C (A 13 True (Bar {foo=D {a=35; b=C}; x=43})))
+        then $display "trans matches"
+        else $display "trans mismatch: " (fshow bres)
       $finish
