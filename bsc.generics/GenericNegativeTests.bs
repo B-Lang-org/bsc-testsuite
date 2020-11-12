@@ -17,11 +17,11 @@ fooRepr :: (Generic Foo r) => TypeEq r
   (Meta (MetaData "Foo" "GenericTests" 4)
    (Either
     (Meta (MetaConsAnon "A" 0 3)
-     (Meta (MetaField "_0" 0) (Conc (UInt 8)),
-      Meta (MetaField "_1" 1) (Conc Bool)))
+     (Meta (MetaField "_1" 0) (Conc (UInt 8)),
+      Meta (MetaField "_2" 1) (Conc Bool)))
     (Either
      (Meta (MetaConsAnon "B" 1 1)
-      (Meta (MetaField "_0" 0) (Conc (UInt 16))))
+      (Meta (MetaField "_1" 0) (Conc (UInt 16))))
      (Meta (MetaConsAnon "C" 2 0) ()))))
 fooRepr = refl
 

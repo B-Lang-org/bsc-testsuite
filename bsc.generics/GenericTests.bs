@@ -36,17 +36,30 @@ instance Eq Qux where
 instance FShow Qux where
   fshow q = $format "Qux " q.y
 
+data Kax = K1 (UInt 8) (a -> a) -- Higher rank
+         | K2 (UInt 8)
+
+instance Eq Kax where
+   -- XXX Can't match on higher-rank field due to https://github.com/B-Lang-org/bsc/issues/277
+  (==) (K1 x1 _) (K1 x2 _) = x1 == x2 -- && (y1 42) == (y2 42)
+  (==) (K2 x) (K2 y) = x == y
+  (==) _ _ = False
+
+instance FShow Kax where
+  fshow (K1 x _) = $format "K1 " x
+  fshow (K2 x) = $format "K2 " x
+
 -- Test generic representations
 fooRepr :: (Generic Foo r) => TypeEq r
   (Meta (MetaData "Foo" "GenericTests" 4)
    (Either
     (Meta (MetaConsAnon "A" 0 3)
-     (Meta (MetaField "_0" 0) (Conc (UInt 8)),
-      Meta (MetaField "_1" 1) (Conc Bool),
-      Meta (MetaField "_2" 2) (Conc Bar)))
+     (Meta (MetaField "_1" 0) (Conc (UInt 8)),
+      Meta (MetaField "_2" 1) (Conc Bool),
+      Meta (MetaField "_3" 2) (Conc Bar)))
     (Either
      (Meta (MetaConsAnon "B" 1 1)
-      (Meta (MetaField "_0" 0) (Conc (UInt 16))))
+      (Meta (MetaField "_1" 0) (Conc (UInt 16))))
      (Either (Meta (MetaConsAnon "C" 2 0) ())
       (Meta (MetaConsNamed "D" 3 2)
        (Meta (MetaField "a" 0) (Conc (UInt 8)),
@@ -63,23 +76,22 @@ barRepr = refl
 bazRepr :: (Generic (Baz a) r) => TypeEq r
   (Meta (MetaData "Baz" "GenericTests" 1)
    (Meta (MetaConsAnon "Baz" 0 2)
-    (Meta (MetaField "_0" 0) (Conc a),
-     Meta (MetaField "_1" 1) (Conc a))))
+    (Meta (MetaField "_1" 0) (Conc a),
+     Meta (MetaField "_2" 1) (Conc a))))
 bazRepr = refl
 
 bazFooRepr :: (Generic (Baz Foo) r) => TypeEq r
   (Meta (MetaData "Baz" "GenericTests" 1)
    (Meta (MetaConsAnon "Baz" 0 2)
-    (Meta (MetaField "_0" 0) (Conc Foo),
-     Meta (MetaField "_1" 1) (Conc Foo))))
+    (Meta (MetaField "_1" 0) (Conc Foo),
+     Meta (MetaField "_2" 1) (Conc Foo))))
 bazFooRepr = refl
 
 {- Can't actually test this, due to the presence of a generated struct Qux_x
 quxFooRepr :: (Generic Qux r) => TypeEq r
   (Meta (MetaData "Qux" "GenericTests" 1)
    (Meta (MetaConsNamed "Qux" 0 2)
-    (Meta (MetaField "x" 0)
-     (Meta (MetaPoly "a\n") (Conc Qux_x)),
+    (Meta (MetaField "x" 0) (ConcPoly Qux_x),
      Meta (MetaField "y" 1) (Conc (Int 8)))))
 quxFooRepr = refl
 -}
@@ -134,6 +146,14 @@ actTestGeneric x = do
     then $display "from matches"
     else $display "from mismatch: " (fshow res)
 
+-- Alternate test for types where rep doesn't have FShow
+actTestGenericNoShow :: (Generic a r, FShow a, Eq a) => a -> Action
+actTestGenericNoShow x = do
+  let res :: a = to (from x)
+  if res == x
+    then $display "from matches"
+    else $display "from mismatch"
+
 sysGenericTests :: Module Empty
 sysGenericTests = module
   rules
@@ -142,12 +162,8 @@ sysGenericTests = module
       actTestGeneric (Bar {x=42; foo=C})
       actTestGeneric (A 12 True (Bar {foo=D {a=34; b=C}; x=42}))
       actTestGeneric (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
---    actTestGeneric (Qux {x=id; y=7}) -- Higher-rank wrapper doesn't have FShow
-      let q = (Qux {x=id; y=7})
-      let qres :: Qux = to (from q)
-      if qres == q
-        then $display "from matches"
-        else $display "from mismatch: " (fshow qres)
+      actTestGenericNoShow (Qux {x=id; y=7})
+      actTestGenericNoShow (K1 42 id)
       actTestGeneric ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar)
 --    actTestGeneric ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
 
