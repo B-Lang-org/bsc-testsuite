@@ -20,6 +20,10 @@ f3 = Foo {x = 42; y = _when_ True 114}
 f4 :: Foo
 f4 = Foo {x = 42; y = _when_ False 114}
 
+-- Test calling primDeepSeqCond directly
+f1c :: a -> a
+f1c = primDeepSeqCond f1
+
 -- mkFoldFIFO but with an implict condition on the foldr method
 mkMyFoldFIFO :: (IsModule m c, Bits a k) => m (FoldFIFO a)
 mkMyFoldFIFO =
