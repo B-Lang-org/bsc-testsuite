@@ -286,10 +286,14 @@ if { $vtest == 1 } {
     # filter out cc/iverilog warnings
     set rawfile [make_bsc_vcomp_output_name sysGCD]
     set filtfile "$rawfile.filtered"
-    set ere {-e /fpermissive/d -e /WARNING:\ IVerilog/d -e /not\ guaranteed/d -e /are\ deprecated/d}
+    set ere {-e /fpermissive/d -e /WARNING:\ IVerilog/d -e /not\ guaranteed/d}
     # iverilog 10.1 has spurious warnings
     if { $verilog_compiler == "iverilog" && $verilog_compiler_version == "10.1" } {
         append ere { -e {/inherits dimensions from var/d}}
+    }
+    # Silence deprication warning in iverilog 11.0 for now
+    if { $verilog_compiler == "iverilog" && $verilog_compiler_version == "11.0" } {
+        append ere { -e {/SFT files are deprecated/d}}
     }
     sed $rawfile $filtfile $ere {}
     compare_file $filtfile empty.expected
