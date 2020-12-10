@@ -1,5 +1,9 @@
-# bug 381 is not fixed, but an unknown-size error masks it
-compile_fail_error Converter.bs T0035
+# bug 381 is not fixed, we should raise an error here
+compile_fail_bug Converter.bs T0035
+
+# We now get an internal error when Converter is synthesized in another module
+compile_verilog_fail YY.bsv
+compare_file YY.bsv.bsc-vcomp-out
 
 # Converter.bsv is the transliterated Converter.bs
 # which fails with an appropriate error
