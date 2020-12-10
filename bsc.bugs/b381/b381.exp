@@ -3,7 +3,7 @@ compile_fail_bug Converter.bs T0035
 
 # We now get an internal error when Converter is synthesized in another module
 compile_verilog_fail YY.bsv
-compare_file YY.bsv.bsc-vcomp-out
+compare_file_filtered YY.bsv.bsc-vcomp-out {} "s/Bluespec Compiler \(build .*\)/d"
 
 # Converter.bsv is the transliterated Converter.bs
 # which fails with an appropriate error
