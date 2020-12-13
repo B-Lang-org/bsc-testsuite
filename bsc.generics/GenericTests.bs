@@ -147,7 +147,7 @@ actTestGeneric x = do
     else $display "from mismatch: " (fshow res)
 
 -- Alternate test for types where rep doesn't have FShow
-actTestGenericNoShow :: (Generic a r, FShow a, Eq a) => a -> Action
+actTestGenericNoShow :: (Generic a r, Eq a) => a -> Action
 actTestGenericNoShow x = do
   let res :: a = to (from x)
   if res == x
@@ -165,7 +165,7 @@ sysGenericTests = module
       actTestGenericNoShow (Qux {x=id; y=7})
       actTestGenericNoShow (K1 42 id)
       actTestGeneric ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar)
---    actTestGeneric ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
+      actTestGenericNoShow ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
 
       let b = (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
       let bres = trans b
