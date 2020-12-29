@@ -6,8 +6,9 @@ compile_verilog_fail_error UndefinedStringErr.bsv S0015
 compile_object_fail_error UndefinedStringLength.bsv G0080
 
 if {$ctest == 1} {
-  compile_verilog_pass AbstractDeriveType.bsv mkAbstractDeriveType
-  compile_verilog_fail_error AbstractDerivePosition.bsv S0015
+  compile_object_pass AbstractDeriveType.bsv mkAbstractDeriveType
+  compile_object_fail_error AbstractDerivePosition.bsv S0015
+  compare_file AbstractDerivePosition.bsv.bsc-ccomp-out
 }
 
 # vector of 512 registers written to dynamically
