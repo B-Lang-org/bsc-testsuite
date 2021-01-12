@@ -1,6 +1,9 @@
 checking package dependencies
 compiling AbstractDeriveType.bsv
 code generation for mkAbstractDeriveType starts
-Compilation message: Type
-Elaborated module file created: mkAbstractDeriveType.ba
-All packages are up to date.
+Error: "AbstractDeriveType.bsv", line 3, column 13: (S0015)
+  Bluespec evaluation-time error: Attempt to use undetermined Type
+  During elaboration of `messageM' at "AbstractDeriveType.bsv", line 4, column
+  4.
+  During elaboration of `mkAbstractDeriveType' at "AbstractDeriveType.bsv",
+  line 2, column 8.
