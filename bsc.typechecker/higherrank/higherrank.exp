@@ -5,5 +5,12 @@ test_veri_only HigherRank
 test_veri_only Undefined
 test_veri_only DeepSeqCond
 
-# Use of an ininitialized value results in an expected error
+# Use of a higher-rank member of an unininitialized struct value
+# results in an expected error
 compile_verilog_fail_error Uninitialized.bs G0028 1 sysUninitialized
+compare_file Uninitialized.bs.bsc-vcomp-out
+
+# Use of a member of a higher-rank member of an uninitialized struct value
+# currently gives an error about only the outer field being uninitialized.
+compile_verilog_fail_error UninitializedStruct.bs G0028 1 sysUninitializedStruct
+compare_file UninitializedStruct.bs.bsc-vcomp-out
