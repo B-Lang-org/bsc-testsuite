@@ -1,6 +1,6 @@
 PolyField PreludeBSV Prelude
 ----------
-PolyField::I1 PolyField::I1_set PolyField::I2 PolyField::I2_id PolyField::I3 PolyField::I3_set PolyField::I4 PolyField::I4_id PolyField::S1 PolyField::S1_id PolyField::S2 PolyField::S2_id
+PolyField::I1 PolyField::I2 PolyField::I3 PolyField::I4 PolyField::S1 PolyField::S2
 ----------
 Interface PolyField::I1 {members {{method {Action set {a Reg#(a)} {{(* ports = ["value", "rg"] *)}}}}}} {position {PolyField.bsv 1 11}}
 ----------
