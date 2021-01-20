@@ -21,8 +21,8 @@ f4 :: Foo
 f4 = Foo {x = 42; y = _when_ False 114}
 
 -- Test calling primDeepSeqCond directly
-f1c :: a -> a
-f1c = primDeepSeqCond f1
+f12 :: Foo
+f12 = primDeepSeqCond f1 f2
 
 -- mkFoldFIFO but with an implict condition on the foldr method
 mkMyFoldFIFO :: (IsModule m c, Bits a k) => m (FoldFIFO a)
@@ -51,4 +51,5 @@ sysDeepSeqCond = module
       $display (fshow (impCondOf f3))
       $display (fshow (impCondOf f4))
       $display (fshow (impCondOf (ff.foldr (+) 0)))
+      $display (fshow (impCondOf f12))
       $finish
