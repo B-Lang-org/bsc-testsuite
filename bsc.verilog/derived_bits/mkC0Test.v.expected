@@ -4,14 +4,14 @@
 //
 // Ports:
 // Name                         I/O  size props
-// abcd_isA                       O     1
-// RDY_abcd_isA                   O     1 const
-// abcd_isB                       O     1
-// RDY_abcd_isB                   O     1 const
-// abcd_isC                       O     1
-// RDY_abcd_isC                   O     1 const
-// abcd_isD                       O     1
-// RDY_abcd_isD                   O     1 const
+// isA                            O     1
+// RDY_isA                        O     1 const
+// isB                            O     1
+// RDY_isB                        O     1 const
+// isC                            O     1
+// RDY_isC                        O     1 const
+// isD                            O     1
+// RDY_isD                        O     1 const
 // isE                            O     1
 // RDY_isE                        O     1 const
 // isF                            O     1
@@ -44,56 +44,56 @@
   `define BSV_RESET_EDGE negedge
 `endif
 
-module c0Test(CLK,
-	      RST_N,
+module mkC0Test(CLK,
+		RST_N,
 
-	      abcd_isA,
-	      RDY_abcd_isA,
+		isA,
+		RDY_isA,
 
-	      abcd_isB,
-	      RDY_abcd_isB,
+		isB,
+		RDY_isB,
 
-	      abcd_isC,
-	      RDY_abcd_isC,
+		isC,
+		RDY_isC,
 
-	      abcd_isD,
-	      RDY_abcd_isD,
+		isD,
+		RDY_isD,
 
-	      isE,
-	      RDY_isE,
+		isE,
+		RDY_isE,
 
-	      isF,
-	      RDY_isF,
+		isF,
+		RDY_isF,
 
-	      isG,
-	      RDY_isG,
+		isG,
+		RDY_isG,
 
-	      isH,
-	      RDY_isH,
+		isH,
+		RDY_isH,
 
-	      isI,
-	      RDY_isI,
+		isI,
+		RDY_isI,
 
-	      isJ,
-	      RDY_isJ);
+		isJ,
+		RDY_isJ);
   input  CLK;
   input  RST_N;
 
-  // value method abcd_isA
-  output abcd_isA;
-  output RDY_abcd_isA;
+  // value method isA
+  output isA;
+  output RDY_isA;
 
-  // value method abcd_isB
-  output abcd_isB;
-  output RDY_abcd_isB;
+  // value method isB
+  output isB;
+  output RDY_isB;
 
-  // value method abcd_isC
-  output abcd_isC;
-  output RDY_abcd_isC;
+  // value method isC
+  output isC;
+  output RDY_isC;
 
-  // value method abcd_isD
-  output abcd_isD;
-  output RDY_abcd_isD;
+  // value method isD
+  output isD;
+  output RDY_isD;
 
   // value method isE
   output isE;
@@ -120,20 +120,20 @@ module c0Test(CLK,
   output RDY_isJ;
 
   // signals for module outputs
-  wire RDY_abcd_isA,
-       RDY_abcd_isB,
-       RDY_abcd_isC,
-       RDY_abcd_isD,
+  wire RDY_isA,
+       RDY_isB,
+       RDY_isC,
+       RDY_isD,
        RDY_isE,
        RDY_isF,
        RDY_isG,
        RDY_isH,
        RDY_isI,
        RDY_isJ,
-       abcd_isA,
-       abcd_isB,
-       abcd_isC,
-       abcd_isD,
+       isA,
+       isB,
+       isC,
+       isD,
        isE,
        isF,
        isG,
@@ -146,21 +146,21 @@ module c0Test(CLK,
   wire [6 : 0] r$D_IN;
   wire r$EN;
 
-  // value method abcd_isA
-  assign abcd_isA = r[6:5] == 2'd1 && r[2:1] == 2'd0 ;
-  assign RDY_abcd_isA = 1'd1 ;
+  // value method isA
+  assign isA = r[6:5] == 2'd1 && r[2:1] == 2'd0 ;
+  assign RDY_isA = 1'd1 ;
 
-  // value method abcd_isB
-  assign abcd_isB = r[6:5] == 2'd1 && r[2:1] == 2'd1 ;
-  assign RDY_abcd_isB = 1'd1 ;
+  // value method isB
+  assign isB = r[6:5] == 2'd1 && r[2:1] == 2'd1 ;
+  assign RDY_isB = 1'd1 ;
 
-  // value method abcd_isC
-  assign abcd_isC = r[6:5] == 2'd1 && r[2:1] == 2'd2 ;
-  assign RDY_abcd_isC = 1'd1 ;
+  // value method isC
+  assign isC = r[6:5] == 2'd1 && r[2:1] == 2'd2 ;
+  assign RDY_isC = 1'd1 ;
 
-  // value method abcd_isD
-  assign abcd_isD = r[6:5] == 2'd1 && r[2:1] == 2'd3 ;
-  assign RDY_abcd_isD = 1'd1 ;
+  // value method isD
+  assign isD = r[6:5] == 2'd1 && r[2:1] == 2'd3 ;
+  assign RDY_isD = 1'd1 ;
 
   // value method isE
   assign isE = r[6:5] == 2'd0 ;
@@ -206,5 +206,5 @@ module c0Test(CLK,
   end
   `endif // BSV_NO_INITIAL_BLOCKS
   // synopsys translate_on
-endmodule  // c0Test
+endmodule  // mkC0Test
 

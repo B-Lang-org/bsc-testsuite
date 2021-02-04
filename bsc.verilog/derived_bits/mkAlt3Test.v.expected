@@ -32,20 +32,20 @@
   `define BSV_RESET_EDGE negedge
 `endif
 
-module alt5Test(CLK,
-		RST_N,
+module mkAlt3Test(CLK,
+		  RST_N,
 
-		isA,
-		RDY_isA,
+		  isA,
+		  RDY_isA,
 
-		isB,
-		RDY_isB,
+		  isB,
+		  RDY_isB,
 
-		isC,
-		RDY_isC,
+		  isC,
+		  RDY_isC,
 
-		isD,
-		RDY_isD);
+		  isD,
+		  RDY_isD);
   input  CLK;
   input  RST_N;
 
@@ -109,5 +109,5 @@ module alt5Test(CLK,
   end
   `endif // BSV_NO_INITIAL_BLOCKS
   // synopsys translate_on
-endmodule  // alt5Test
+endmodule  // mkAlt3Test
 

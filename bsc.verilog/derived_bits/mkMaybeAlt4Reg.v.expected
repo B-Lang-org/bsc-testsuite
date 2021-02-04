@@ -5,11 +5,11 @@
 // Ports:
 // Name                         I/O  size props
 // RDY__write                     O     1 const
-// _read                          O     3 reg
+// _read                          O     4 reg
 // RDY__read                      O     1 const
 // CLK                            I     1 clock
 // RST_N                          I     1 unused
-// _write_1                       I     3 reg
+// _write_1                       I     4 reg
 // EN__write                      I     1
 //
 // No combinational paths from inputs to outputs
@@ -29,34 +29,34 @@
   `define BSV_RESET_EDGE negedge
 `endif
 
-module altReg4(CLK,
-	       RST_N,
+module mkMaybeAlt4Reg(CLK,
+		      RST_N,
 
-	       _write_1,
-	       EN__write,
-	       RDY__write,
+		      _write_1,
+		      EN__write,
+		      RDY__write,
 
-	       _read,
-	       RDY__read);
+		      _read,
+		      RDY__read);
   input  CLK;
   input  RST_N;
 
   // action method _write
-  input  [2 : 0] _write_1;
+  input  [3 : 0] _write_1;
   input  EN__write;
   output RDY__write;
 
   // value method _read
-  output [2 : 0] _read;
+  output [3 : 0] _read;
   output RDY__read;
 
   // signals for module outputs
-  wire [2 : 0] _read;
+  wire [3 : 0] _read;
   wire RDY__read, RDY__write;
 
   // register r
-  reg [2 : 0] r;
-  wire [2 : 0] r$D_IN;
+  reg [3 : 0] r;
+  wire [3 : 0] r$D_IN;
   wire r$EN;
 
   // action method _write
@@ -82,9 +82,9 @@ module altReg4(CLK,
   `else // not BSV_NO_INITIAL_BLOCKS
   initial
   begin
-    r = 3'h2;
+    r = 4'hA;
   end
   `endif // BSV_NO_INITIAL_BLOCKS
   // synopsys translate_on
-endmodule  // altReg4
+endmodule  // mkMaybeAlt4Reg
 

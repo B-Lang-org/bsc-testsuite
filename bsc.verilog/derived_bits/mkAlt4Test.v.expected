@@ -32,20 +32,20 @@
   `define BSV_RESET_EDGE negedge
 `endif
 
-module alt1Test(CLK,
-		RST_N,
+module mkAlt4Test(CLK,
+		  RST_N,
 
-		isA,
-		RDY_isA,
+		  isA,
+		  RDY_isA,
 
-		isB,
-		RDY_isB,
+		  isB,
+		  RDY_isB,
 
-		isC,
-		RDY_isC,
+		  isC,
+		  RDY_isC,
 
-		isD,
-		RDY_isD);
+		  isD,
+		  RDY_isD);
   input  CLK;
   input  RST_N;
 
@@ -74,19 +74,19 @@ module alt1Test(CLK,
   wire r$EN;
 
   // value method isA
-  assign isA = r == 3'd0 || r == 3'd1 ;
+  assign isA = r[2:1] == 2'd0 ;
   assign RDY_isA = 1'd1 ;
 
   // value method isB
-  assign isB = r == 3'd2 || r == 3'd3 ;
+  assign isB = r[2:1] == 2'd1 ;
   assign RDY_isB = 1'd1 ;
 
   // value method isC
-  assign isC = r == 3'd4 || r == 3'd5 ;
+  assign isC = r[2:1] == 2'd2 ;
   assign RDY_isC = 1'd1 ;
 
   // value method isD
-  assign isD = r == 3'd6 || r == 3'd7 ;
+  assign isD = r[2:1] == 2'd3 ;
   assign RDY_isD = 1'd1 ;
 
   // register r
@@ -109,5 +109,5 @@ module alt1Test(CLK,
   end
   `endif // BSV_NO_INITIAL_BLOCKS
   // synopsys translate_on
-endmodule  // alt1Test
+endmodule  // mkAlt4Test
 

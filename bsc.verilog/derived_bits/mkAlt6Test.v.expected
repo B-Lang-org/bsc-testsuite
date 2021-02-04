@@ -10,8 +10,6 @@
 // RDY_isB                        O     1 const
 // isC                            O     1
 // RDY_isC                        O     1 const
-// isD                            O     1
-// RDY_isD                        O     1 const
 // CLK                            I     1 clock
 // RST_N                          I     1 unused
 //
@@ -32,20 +30,17 @@
   `define BSV_RESET_EDGE negedge
 `endif
 
-module alt2Test(CLK,
-		RST_N,
+module mkAlt6Test(CLK,
+		  RST_N,
 
-		isA,
-		RDY_isA,
+		  isA,
+		  RDY_isA,
 
-		isB,
-		RDY_isB,
+		  isB,
+		  RDY_isB,
 
-		isC,
-		RDY_isC,
-
-		isD,
-		RDY_isD);
+		  isC,
+		  RDY_isC);
   input  CLK;
   input  RST_N;
 
@@ -61,12 +56,8 @@ module alt2Test(CLK,
   output isC;
   output RDY_isC;
 
-  // value method isD
-  output isD;
-  output RDY_isD;
-
   // signals for module outputs
-  wire RDY_isA, RDY_isB, RDY_isC, RDY_isD, isA, isB, isC, isD;
+  wire RDY_isA, RDY_isB, RDY_isC, isA, isB, isC;
 
   // register r
   reg [2 : 0] r;
@@ -84,10 +75,6 @@ module alt2Test(CLK,
   // value method isC
   assign isC = r[2:1] == 2'd2 ;
   assign RDY_isC = 1'd1 ;
-
-  // value method isD
-  assign isD = r[2:1] == 2'd3 ;
-  assign RDY_isD = 1'd1 ;
 
   // register r
   assign r$D_IN = 3'h0 ;
@@ -109,5 +96,5 @@ module alt2Test(CLK,
   end
   `endif // BSV_NO_INITIAL_BLOCKS
   // synopsys translate_on
-endmodule  // alt2Test
+endmodule  // mkAlt6Test
 
