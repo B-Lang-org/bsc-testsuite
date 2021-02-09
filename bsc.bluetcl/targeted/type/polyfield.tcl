@@ -4,7 +4,6 @@ puts [bpackage load PolyField]
 
 puts {----------}
 
-# Note that this includes defs for generated poly field wrapper structs
 puts [defs type PolyField]
 
 puts {----------}
