@@ -5,4 +5,4 @@ Error: "AbstractDeriveAttrib.bs", line 4, column 4: (S0015)
   Bluespec evaluation-time error: Attempt to use undetermined
   Prelude.Attributes__
   During elaboration of `sysAbstractDeriveAttrib' at
-  "AbstractDeriveAttrib.bs", line 10, column 0.
+  "AbstractDeriveAttrib.bs", line 11, column 0.

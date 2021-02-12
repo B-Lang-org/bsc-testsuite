@@ -10,7 +10,7 @@ if {$ctest == 1} {
   compare_file AbstractDeriveType.bsv.bsc-ccomp-out
   compile_object_fail_error AbstractDerivePosition.bsv S0015
   compare_file AbstractDerivePosition.bsv.bsc-ccomp-out
-  compile_object_fail_error AbstractDeriveAttrib.bs S0015 1 sysAbstractDeriveAttrib
+  compile_object_fail_error AbstractDeriveAttrib.bs S0015
   compare_file  AbstractDeriveAttrib.bs.bsc-ccomp-out
 }
 

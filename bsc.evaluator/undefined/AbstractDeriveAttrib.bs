@@ -7,6 +7,7 @@ m :: Module Empty
 m = module
   interface
 
+{-# verilog sysAbstractDeriveAttrib #-}
 sysAbstractDeriveAttrib :: Module Empty
 sysAbstractDeriveAttrib = module
   setStateAttrib a m
