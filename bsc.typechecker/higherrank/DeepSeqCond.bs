@@ -13,7 +13,7 @@ f1 = Foo {x = _when_ True 42; y = 114}
 f2 :: Foo
 f2 = Foo {x = _when_ False 42; y = 114}
 
--- Implicit condition should *not* be surfaced, due to the Literal context
+-- Implicit condition on a polymorphic field is surfaced
 f3 :: Foo
 f3 = Foo {x = 42; y = _when_ True 114}
 
