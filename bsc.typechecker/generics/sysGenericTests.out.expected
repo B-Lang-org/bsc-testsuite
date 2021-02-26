@@ -12,6 +12,15 @@ tagged Meta tagged Meta <tagged Meta tagged Conc tagged C ,tagged Meta tagged Co
 from matches
 from matches
 from matches
+Representation for tagged C1 FooBSV_$C1 { x:   5, y: False, z:     3223434 }
+tagged Meta tagged Left tagged Meta <tagged Meta tagged Conc   5,tagged Meta tagged Conc False,tagged Meta tagged Conc     3223434>
+from matches
+Representation for tagged C2    42
+tagged Meta tagged Right tagged Left tagged Meta tagged Meta tagged Conc    42
+from matches
+Representation for tagged C3 
+tagged Meta tagged Right tagged Right tagged Meta 
+from matches
 Representation for <V Bar { foo: tagged C , x:  42 } Bar { foo: tagged B  2323, x:   3 }  >
 tagged Meta <V tagged Conc Bar { foo: tagged C , x:  42 } tagged Conc Bar { foo: tagged B  2323, x:   3 }  >
 from matches

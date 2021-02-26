@@ -4,6 +4,8 @@ import ListN
 import Vector
 import BuildVector
 
+import GenericTestsBSV
+
 -- Represents "evidence" for type equality between a and b,
 -- can only be constructed by refl ("reflexive") when a and b are equal.
 -- This could move to a library, I suppose?
@@ -87,6 +89,19 @@ bazFooRepr :: (Generic (Baz Foo) r) => TypeEq r
      Meta (MetaField "_2" 1) (Conc Foo))))
 bazFooRepr = refl
 
+fooBSVRepr :: (Generic FooBSV r) => TypeEq r
+  (Meta (MetaData "FooBSV" "GenericTestsBSV" 3)
+   (Either
+    (Meta (MetaConsNamed "C1" 0 3)
+     (Meta (MetaField "x" 0) (Conc (UInt 8)),
+      Meta (MetaField "y" 1) (Conc Bool),
+      Meta (MetaField "z" 2) (Conc (Int 32))))
+    (Either
+     (Meta (MetaConsAnon "C2" 1 1)
+      (Meta (MetaField "_1" 0) (Conc (UInt 16))))
+     (Meta (MetaConsAnon "C3" 2 0) ()))))
+fooBSVRepr = refl
+
 {- Can't actually test this, due to the presence of a generated struct Qux_x
 quxFooRepr :: (Generic Qux r) => TypeEq r
   (Meta (MetaData "Qux" "GenericTests" 1)
@@ -164,6 +179,9 @@ sysGenericTests = module
       actTestGeneric (Baz C (A 12 True (Bar {foo=D {a=34; b=C}; x=42})))
       actTestGenericNoShow (Qux {x=id; y=7})
       actTestGenericNoShow (K1 42 id)
+      actTestGeneric (C1 {x=5; y=False; z=3223434})
+      actTestGeneric (C2 42)
+      actTestGeneric C3
       actTestGeneric ((vec (Bar {x=42; foo=C}) (Bar {x=3; foo=B 2323})) :: Vector 2 Bar)
       actTestGenericNoShow ((Bar {x=42; foo=C}) :> (Bar {x=3; foo=B 2323}) :> ListN.nil) -- XXX ListN doesn't have FShow
 
