@@ -34,14 +34,7 @@ do_tests Alt3
 do_tests Alt4
 do_tests Alt5
 do_tests Alt6
-
-# The C0 tests don't pass yet, so can't use 'do_tests'
-#do_tests C0
-compile_verilog_pass C0.bs "" "-opt-undetermined-vals"
-compare_verilog_bug mkC0Reg.v
-compare_verilog_bug mkMaybeC0Reg.v
-compare_verilog mkC0Test.v
-
+do_tests C0
 do_tests C1
 
 # -----
@@ -58,3 +51,18 @@ compare_verilog mkEnumType2Test.v
 compare_verilog mkEnumType3Test.v
 
 # -----
+
+# This module has one input: a union type, whose constructors take two
+# arguments.  This input is decoded into separate output ports for each
+# of the argument values along with a valid bit indicating when that
+# union tag is present (and the associated values are valid).
+# The generated expressions for the value ports should reduce to just wires.
+
+compile_verilog_pass Decoder.bs "" "-opt-undetermined-vals -unspecified-to x"
+
+# If mkDecoder.v does not simplify correctly, conditionals and/or Xs
+# may appear in the generated output.
+string_does_not_occur mkDecoder.v "xxxx"
+string_does_not_occur mkDecoder.v "unspecified value"
+string_does_not_occur mkDecoder.v "\?"
+string_does_not_occur mkDecoder.v "case"
