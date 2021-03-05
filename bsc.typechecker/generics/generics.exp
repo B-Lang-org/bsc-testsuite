@@ -1,8 +1,6 @@
 
 # tests for Bluespec generics
 
-compile_pass GenericTestsBSV.bsv
-
 test_c_veri GenericTests
 compile_fail GenericNegativeTests.bs
 compare_file GenericNegativeTests.bs.bsc-out
