@@ -1,6 +1,0 @@
-Error: Command line: (S0092)
-  Could not open the directory specified with the -fdir flag.
-  Directory:
-    INVALID
-  System message:
-    does not exist

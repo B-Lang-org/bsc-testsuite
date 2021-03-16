@@ -1,2 +1,0 @@
-compile_fail EFieldAmb.bs
-compare_file EFieldAmb.bs.bsc-out

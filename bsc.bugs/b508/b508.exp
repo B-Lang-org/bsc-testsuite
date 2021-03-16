@@ -1,2 +1,0 @@
-compile_verilog_pass Bug508.bsv
-compile_object_pass Bug508.bsv

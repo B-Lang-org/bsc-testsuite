@@ -1,8 +1,0 @@
-package Pattern_As () where
-
-x :: Integer -> Bool
-x i = case (i) of
-        0 -> True
-        _@(1) -> False
-        v -> True
-

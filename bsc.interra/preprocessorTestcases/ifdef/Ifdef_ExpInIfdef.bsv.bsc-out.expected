@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "Ifdef_ExpInIfdef.bsv", line 27, column 2: (P0070)
-  Expression block (starting around here) missing return value

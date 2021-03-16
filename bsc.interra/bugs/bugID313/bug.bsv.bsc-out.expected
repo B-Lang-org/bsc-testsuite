@@ -1,4 +1,0 @@
-checking package dependencies
-Error: "bug.bsv", line 8, column 45: (P0085)
-  Function `myFunc' has duplicate argument `abc' (previous declaration at
-  "bug.bsv", line 8, column 33)

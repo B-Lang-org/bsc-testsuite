@@ -1,8 +1,0 @@
-cond: True
-cond2: True
-cond: False
-cond2: True
-cond: True
-cond2: False
-cond: False
-cond2: False

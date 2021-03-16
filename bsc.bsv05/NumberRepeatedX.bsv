@@ -1,1 +1,0 @@
-Integer x = 'x;

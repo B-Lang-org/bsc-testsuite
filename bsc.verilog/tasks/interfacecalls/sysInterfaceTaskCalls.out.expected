@@ -1,5 +1,0 @@
-s: 2
-Bar::prod
-r: 1
-Bar::peek
-Bar::poke

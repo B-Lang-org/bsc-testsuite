@@ -1,3 +1,0 @@
-compile_fail_error_bug Bug437BSV.bsv T0020
-compile_fail_error_bug Bug437Classic.bs T0020
-compile_fail_error_bug BoolIsFunction.bsv T0020

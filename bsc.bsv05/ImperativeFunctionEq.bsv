@@ -1,1 +1,0 @@
-function Bool f() = False;

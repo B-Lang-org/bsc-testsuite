@@ -1,2 +1,0 @@
-compile_pass BsTop.bs
-compare_file BsTop.bs.bsc-out

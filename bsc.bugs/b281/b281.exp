@@ -1,4 +1,0 @@
-compile_pass_warning Bug281_1.bsv P0103 2
-compile_pass_warning Bug281_2.bsv P0103 1
-compile_pass_warning Bug281_3.bsv P0103 0
-

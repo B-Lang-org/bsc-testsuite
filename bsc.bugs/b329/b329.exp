@@ -1,4 +1,0 @@
-compile_pass_warning Bug329_1.bsv P0102
-compile_pass_warning Bug329_2.bsv P0102
-compile_pass_warning Bug329_3.bsv P0102
-

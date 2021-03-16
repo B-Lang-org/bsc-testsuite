@@ -1,8 +1,0 @@
-
-# tests for Bluespec generics
-
-test_c_veri GenericTests
-compile_fail GenericNegativeTests.bs
-compare_file GenericNegativeTests.bs.bsc-out
-
-test_c_veri CustomBits

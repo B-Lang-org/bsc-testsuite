@@ -1,7 +1,0 @@
-package EmptyModuleBreaks where
-
-m :: Module Empty
-m = module
-
-x :: Integer
-x = 17

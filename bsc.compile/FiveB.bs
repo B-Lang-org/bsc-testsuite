@@ -1,5 +1,0 @@
-package Five(five) where
-
-five :: Bool -> Integer
-five x = if x then 5 else 0
-

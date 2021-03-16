@@ -1,5 +1,0 @@
-package DisplayTypeCheck() where
-
-foo :: Action
-foo = let x = 5
-      in $display (x :: Bit 5) (x :: Bit 7)

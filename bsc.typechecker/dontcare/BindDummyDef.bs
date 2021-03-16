@@ -1,5 +1,0 @@
-package BindDummyDef () where
-
-_ :: Int 32
-_ = _
-

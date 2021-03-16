@@ -1,3 +1,0 @@
-compile_fail ENotStruct1.bs
-compare_file ENotStruct1.bs.bsc-out
-

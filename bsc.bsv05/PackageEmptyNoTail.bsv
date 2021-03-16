@@ -1,2 +1,0 @@
-package PackageEmptyNoTail;
-endpackage

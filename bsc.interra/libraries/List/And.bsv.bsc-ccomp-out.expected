@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "And.bsv", line 29, column 34: (P0005)
-  Unexpected V2K keyword `and'; expected expression or `('

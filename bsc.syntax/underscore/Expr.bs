@@ -1,5 +1,0 @@
-package Expr () where
-
-x :: Bool
-x = _
-

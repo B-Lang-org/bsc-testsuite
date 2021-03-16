@@ -1,2 +1,0 @@
-compile_fail ENoTypeSign.bs
-compare_file ENoTypeSign.bs.bsc-out

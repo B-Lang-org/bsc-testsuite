@@ -1,7 +1,0 @@
-package FunDepUnify(isStaticValue, Value) where
-
-data Value n = Value (Bit n) 
-  deriving(Bits)
-
-isStaticValue :: Value n -> Bool
-isStaticValue = compose isStaticIndex pack

@@ -1,7 +1,0 @@
-package ClassDefParamGivenNumUsedNonNum () where
-
-data (Foo :: * -> *) a = Bar a
-
-class (Baz :: # -> *) b where
-    glurph :: Foo b
-

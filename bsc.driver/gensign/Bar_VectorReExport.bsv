@@ -1,2 +1,0 @@
-import Vector::*;
-export Vector::*;

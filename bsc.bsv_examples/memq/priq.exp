@@ -1,3 +1,0 @@
-test_c_veri_bsv_modules DQueueTb {mkQueue}
-
-# XXX PriQ1 and PriQ2?

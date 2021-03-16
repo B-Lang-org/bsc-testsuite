@@ -1,2 +1,0 @@
-compile_fail ENotAnInterface.bs
-compare_file ENotAnInterface.bs.bsc-out

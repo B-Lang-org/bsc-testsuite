@@ -1,2 +1,0 @@
-test_c_veri_bsv_separately CycleTest sysCycleTest.out.expected
-

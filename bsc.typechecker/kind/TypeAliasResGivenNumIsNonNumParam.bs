@@ -1,4 +1,0 @@
-package TypeAliasResGivenNumIsNonNumParam () where
-
-type (Foo :: * -> #) a = a
-

@@ -1,2 +1,0 @@
-test_c_veri_worker MkCompletionBuffer mkTestbench_MkCompletionBuffer {} "bsv" 1 1 "mkTestbench_MkCompletionBuffer.v.out.expected" "" ""
-

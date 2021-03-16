@@ -1,6 +1,0 @@
-package CHasType () where
-
-import List
-
-x :: Bit a
-x = fromInteger (length (Nil :: (List a)))

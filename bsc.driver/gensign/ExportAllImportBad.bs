@@ -1,6 +1,0 @@
-package ExportAllImportBad where
-
-import ExportAllExportBad
-
-quux :: Bool
-quux = foo || bar

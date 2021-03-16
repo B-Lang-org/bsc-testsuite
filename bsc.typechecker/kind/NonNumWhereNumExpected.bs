@@ -1,5 +1,0 @@
-package NonNumWhereNumExpected () where
-
-x :: Bit Bool
-x = 0
-

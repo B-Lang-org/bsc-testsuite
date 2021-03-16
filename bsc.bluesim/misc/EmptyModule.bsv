@@ -1,4 +1,0 @@
-(* synthesize *)
-module sysEmptyModule ();
-endmodule
-

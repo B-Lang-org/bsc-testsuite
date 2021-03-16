@@ -1,3 +1,0 @@
-
-test_c_only_bsv_modules_options Tb {} {-aggressive-conditions}
-

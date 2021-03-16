@@ -1,5 +1,0 @@
-package OneArgMissingOne () where
-
-x :: Bit
-x = _
-

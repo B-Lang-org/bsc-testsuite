@@ -1,3 +1,0 @@
-signature HiddenType where {
-HiddenType.mkFoo :: (Prelude.IsModule _m__ _c__) => _m__ Prelude.Empty
-}

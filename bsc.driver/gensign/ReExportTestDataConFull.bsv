@@ -1,4 +1,0 @@
-import TestDataConFull::*;
-
-export U(..);
-

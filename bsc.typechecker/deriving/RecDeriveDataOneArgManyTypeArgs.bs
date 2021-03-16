@@ -1,4 +1,0 @@
-package RecDeriveDataOneArgManyTypeArgs () where
-
-data Foo a = F (Foo a) deriving (Eq)
-

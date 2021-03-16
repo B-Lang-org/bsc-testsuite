@@ -1,5 +1,0 @@
-# Problem-set version
-compile_pass HammingQ.bsv
-
-# Working version
-test_c_veri_bsv Hamming

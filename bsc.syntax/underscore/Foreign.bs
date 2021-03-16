@@ -1,4 +1,0 @@
-package Foreign () where
-
-foreign _ :: Bit 1
-

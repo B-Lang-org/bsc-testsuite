@@ -1,7 +1,0 @@
-package ExportAllExport where
-
-foo :: Bool
-foo = True
-
-bar :: Bool
-bar = False

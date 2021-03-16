@@ -1,2 +1,0 @@
-compile_verilog_fail_error DuplicateAttr.bsv P0158
-compile_verilog_fail_error WrongLoc_Interface.bsv P0155

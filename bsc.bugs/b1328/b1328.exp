@@ -1,2 +1,0 @@
-compile_verilog_pass Divider.bsv
-compile_verilog_pass Test.bsv

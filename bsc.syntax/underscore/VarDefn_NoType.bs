@@ -1,4 +1,0 @@
-package VarDefn_NoType () where
-
-_ = True
-

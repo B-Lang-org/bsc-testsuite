@@ -1,3 +1,0 @@
-A implementation of the SHA-256 cryptographic hash algorithm (part of
-the SHA-2 family of hash functions), one cycle per iteration.
-

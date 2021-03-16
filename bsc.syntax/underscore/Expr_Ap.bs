@@ -1,5 +1,0 @@
-package Expr_Ap () where
-
-x :: Bool
-x = _ True False False
-

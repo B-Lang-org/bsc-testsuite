@@ -1,5 +1,0 @@
-package Expr_HasType () where
-
-x :: Bool
-x = (_ :: Bool)
-

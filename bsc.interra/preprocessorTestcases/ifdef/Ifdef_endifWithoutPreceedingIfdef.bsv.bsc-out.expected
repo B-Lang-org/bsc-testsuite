@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "Ifdef_endifWithoutPreceedingIfdef.bsv", line 34, column 1: (P0147)
-  Compiler directive `endif found but no earlier matching `ifdef

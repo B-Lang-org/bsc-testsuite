@@ -1,4 +1,0 @@
-checking package dependencies
-compiling EForeignNotBit.bs
-Error: "EForeignNotBit.bs", line 21, column 8: (T0012)
-  Foreign function has non-Bit argument/result: `function'

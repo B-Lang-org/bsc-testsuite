@@ -1,7 +1,0 @@
-package Test () where
-
-f :: Bool
-f = case (True, False) of
-      (i,i) -> i
-      def -> True
-

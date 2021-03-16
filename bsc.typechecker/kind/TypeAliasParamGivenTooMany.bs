@@ -1,4 +1,0 @@
-package TypeAliasParamGivenTooMany () where
-
-type (Foo :: # -> # -> *) a = Bit a
-

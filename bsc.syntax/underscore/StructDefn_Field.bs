@@ -1,5 +1,0 @@
-package StructDefn_Field () where
-
-struct S =
-  _ :: Bool
-

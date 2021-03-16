@@ -1,3 +1,0 @@
-# disable because of MCD work
-#compile_verilog_pass MulticlockFIFO.bs mkTest
-#compare_file MulticlockFIFO.bs.bsc-vcomp-out

@@ -1,5 +1,0 @@
-package StructDefParamGivenNonNumUsedNum () where
-
-struct (Foo :: * -> *) a =
-    bar :: Bit a
-

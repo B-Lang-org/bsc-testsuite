@@ -1,2 +1,0 @@
-compile_fail Test.bs
-compare_file Test.bs.bsc-out

@@ -1,2 +1,0 @@
-compile_fail EBadMatch1.bs
-compare_file EBadMatch1.bs.bsc-out

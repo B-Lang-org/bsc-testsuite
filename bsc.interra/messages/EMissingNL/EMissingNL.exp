@@ -1,2 +1,0 @@
-compile_fail EMissingNL.bs
-compare_file EMissingNL.bs.bsc-out

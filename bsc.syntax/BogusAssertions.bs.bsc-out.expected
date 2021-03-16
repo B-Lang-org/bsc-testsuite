@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "BogusAssertions.bs", line 11, column 21: (P0005)
-  Unexpected "something"; expected "fire", "no", or "can"

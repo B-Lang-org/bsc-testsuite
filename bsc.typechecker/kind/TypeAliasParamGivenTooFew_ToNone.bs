@@ -1,4 +1,0 @@
-package TypeAliasParamGivenTooFew_ToNone () where
-
-type (Foo :: *) a = Bit a
-

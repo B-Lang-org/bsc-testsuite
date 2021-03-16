@@ -1,5 +1,0 @@
-package Lambda_Arg () where
-
-x :: Bool
-x = (\ _ -> True) False
-

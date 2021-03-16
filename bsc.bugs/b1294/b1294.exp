@@ -1,1 +1,0 @@
-compile_pass HasTupleFailFastBug.bsv

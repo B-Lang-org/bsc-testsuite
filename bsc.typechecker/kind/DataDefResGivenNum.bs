@@ -1,4 +1,0 @@
-package DataDefResGivenNum () where
-
-data (Foo :: #) = Bar
-

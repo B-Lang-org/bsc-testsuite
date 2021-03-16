@@ -1,2 +1,0 @@
-compile_pass MkBGPd.bsv
-compile_pass MkBGPt.bsv

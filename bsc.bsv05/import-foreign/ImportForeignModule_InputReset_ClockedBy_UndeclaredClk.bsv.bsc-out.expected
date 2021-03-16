@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "ImportForeignModule_InputReset_ClockedBy_UndeclaredClk.bsv", line 11, column 39: (P0134)
-  undeclared clock `foo'

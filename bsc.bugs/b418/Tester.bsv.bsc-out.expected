@@ -1,6 +1,0 @@
-checking package dependencies
-compiling ./FPLibrary.bsv
-compiling ./FPAdd.bsv
-compiling Tester.bsv
-Error: "Tester.bsv", line 9, column 18: (T0007)
-  Unbound type constructor `IEEE754_32'

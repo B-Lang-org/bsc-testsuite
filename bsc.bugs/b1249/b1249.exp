@@ -1,4 +1,0 @@
-compile_verilog_pass Bug1249.bsv
-if { $vtest == 1 } {
-    find_n_strings sysBug.v "m\$CLK_GATE_OUT" 4
-}

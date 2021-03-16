@@ -1,2 +1,0 @@
-compile_pass RegisterQ.bsv
-compile_verilog_fail_error Register.bsv G0032

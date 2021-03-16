@@ -1,3 +1,0 @@
-# Bug 1546
-compile_fail_error CaseStmt.bsv P0218
-compile_fail_error CaseMatchesStmt.bsv P0218

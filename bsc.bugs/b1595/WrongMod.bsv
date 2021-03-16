@@ -1,4 +1,0 @@
-(* synthesize *)
-module mkWrongMod ();
-endmodule
-

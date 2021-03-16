@@ -1,2 +1,0 @@
-compile_pass TcheckFail.bsv
-compare_file TcheckFail.bsv.bsc-out

@@ -1,7 +1,0 @@
-package Empty () where
-
-interface Null = {}
-
-mkEmpty :: Module Null
-mkEmpty =
-    module

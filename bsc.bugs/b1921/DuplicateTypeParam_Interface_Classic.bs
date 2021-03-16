@@ -1,5 +1,0 @@
-package DuplicateTypeParam_Interface_Classic where
-
-interface Ifc a b a =
-  m :: Action
-

@@ -1,4 +1,0 @@
-checking package dependencies
-compiling EUnboundTyCon.bs
-Error: "EUnboundTyCon.bs", line 19, column 14: (T0007)
-  Unbound type constructor `Real'

@@ -1,3 +1,0 @@
-compile_fail_error Bug1225.bsv T0030
-compare_file Bug1225.bsv.bsc-out
-

@@ -1,3 +1,0 @@
-## The file will compile but the bug is that port connects appear swapped (twice)
-
-bsc_compile_verilog TbSub.bsv 

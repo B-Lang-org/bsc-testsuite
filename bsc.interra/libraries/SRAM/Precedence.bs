@@ -1,6 +1,0 @@
-package Precedence (precede) where
-
-precede :: Rules -> Rules -> Rules
-precede r1 r2 = (r1 <+ r2)
-
-

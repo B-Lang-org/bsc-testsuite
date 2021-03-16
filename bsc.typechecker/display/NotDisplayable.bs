@@ -1,6 +1,0 @@
-package NotDisplayable() where
-
-data Test = A | B
-
-foo :: Action
-foo = $display A 

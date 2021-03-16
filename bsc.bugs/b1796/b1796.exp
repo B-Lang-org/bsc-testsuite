@@ -1,5 +1,0 @@
-
-# Test that proper CXX files are generated
-compile_object_pass Bug1796.bsv
-link_objects_pass {} sysBug1796
-

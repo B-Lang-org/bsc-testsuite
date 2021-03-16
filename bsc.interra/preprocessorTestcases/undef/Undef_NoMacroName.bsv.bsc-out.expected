@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "Undef_NoMacroName.bsv", line 16, column 1: (P0222)
-  missing macro identifier after ``undef'

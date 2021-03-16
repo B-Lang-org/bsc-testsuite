@@ -1,2 +1,0 @@
-compile_fail Design_return.bsv
-compare_file Design_return.bsv.bsc-out

@@ -1,4 +1,0 @@
-compile_verilog_fail_error Test628.bsv S0015
-if { $vtest == 1 } {
-compare_file Test628.bsv.bsc-vcomp-out
-}

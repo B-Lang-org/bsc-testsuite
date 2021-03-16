@@ -1,8 +1,0 @@
-package StmtBind_NoType () where
-
-x :: Module Empty
-x = module
-      _ <- mkReg True
-
-      interface {}
-

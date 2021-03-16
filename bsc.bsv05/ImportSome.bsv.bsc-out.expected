@@ -1,5 +1,0 @@
-checking package dependencies
-bsc: Compilation errors:
-"ImportSome.bsv", line 1, column 15: Importing Prelude::mkReg not supported; use
-Prelude::*
-

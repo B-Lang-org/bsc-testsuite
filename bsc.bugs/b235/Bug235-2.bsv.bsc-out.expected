@@ -1,3 +1,0 @@
-checking package dependencies
-Error: "Bug235-2.bsv", line 7, column 5: (P0071)
-  actionvalue block missing return value

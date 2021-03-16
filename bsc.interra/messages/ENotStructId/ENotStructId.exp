@@ -1,2 +1,0 @@
-compile_fail ENotStructId.bs
-compare_file ENotStructId.bs.bsc-out

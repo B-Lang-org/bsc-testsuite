@@ -1,6 +1,0 @@
-package ListDisplay() where
-
-import Vector
-
-test :: (Bits a sa) => (Vector n a) -> Action
-test l = $display l

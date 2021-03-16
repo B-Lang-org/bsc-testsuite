@@ -1,4 +1,0 @@
-compile_fail_error Tester.bsv T0007
-# check for the exact missing Id
-compare_file Tester.bsv.bsc-out
-

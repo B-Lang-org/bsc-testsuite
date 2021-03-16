@@ -1,3 +1,0 @@
-package NoSign where
-
-x = 17

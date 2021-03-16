@@ -1,3 +1,0 @@
-compile_verilog_pass FIFOPush.bsv
-compare_verilog_bug sysFIFOPush.v 848
-

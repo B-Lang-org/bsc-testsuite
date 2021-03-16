@@ -1,7 +1,0 @@
-package TwoArgMissingTwo () where
-
-data Foo a b = Bar a b
-
-x :: Foo
-x = _
-

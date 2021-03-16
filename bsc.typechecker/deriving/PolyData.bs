@@ -1,5 +1,0 @@
-package PolyData(Id(..)) where
-
-data Id = MyId (a -> a)
-
-

@@ -1,3 +1,0 @@
-signature ExportSomeExport where {
-ExportSomeExport.foo :: Prelude.Bool
-}

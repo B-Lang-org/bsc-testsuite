@@ -1,2 +1,0 @@
-compile_fail EKindArg.bs
-compare_file EKindArg.bs.bsc-out

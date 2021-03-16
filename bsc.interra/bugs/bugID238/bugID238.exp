@@ -1,2 +1,0 @@
-compile_pass IfElseIf.bsv
-compare_file IfElseIf.bsv.bsc-out

@@ -1,7 +1,0 @@
-package PartialAppTooManyArgs where
-
-data Foo = Foo (UInt 8) (UInt 16) Bool
-
-fooPartial :: (UInt 16) -> Bool -> Foo
-fooPartial = Foo 42 3461
-

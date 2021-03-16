@@ -1,2 +1,0 @@
-compile_fail EDupField2.bs
-compare_file EDupField2.bs.bsc-out
